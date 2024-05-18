@@ -1,34 +1,49 @@
 let elements = ['rock', 'paper', 'scissors'];
-let humanScore = 0;
+let userScore = 0;
 let computerScore = 0;
 
-
 function getComputerChoice() {
-    let randomIndex = Math.floor(Math.random() * elements.length);
-    let randomElement = elements[randomIndex];
-    return randomElement;
+  let randomIndex = Math.floor(Math.random() * elements.length);
+  let computerChoice = elements[randomIndex];
+  return computerChoice;
 }
 
-function getHumanChoice() {
-    let userChoice = prompt("Write a value between. Rock, Paper, Scissors");
-    return userChoice
+function getUserChoice() {
+  let userChoice = prompt("Write a value (Rock, Paper, Scissors):").toLowerCase();
+  return userChoice;
 }
 
-function playRound(humanChoice, computerChoice) {
-    if (humanChoice.toLowerCase() === computerChoice(elements)) {
-        return alert('U won. Your Score is:');
-    } else {
-        return alert('Bad');
-    }
+function playRound(userChoice, computerChoice) {
+  if (userChoice === computerChoice) {
+    alert(`It's a tie!`);
+    return; // Exit the function on tie
+  }
+
+  if (userChoice === 'rock' && computerChoice === 'scissors' ||
+      userChoice === 'paper' && computerChoice === 'rock' ||
+      userChoice === 'scissors' && computerChoice === 'paper') {
+    userScore++;
+    alert(`You won! Your score is: ${userScore}`);
+  } else {
+    computerScore++;
+    alert(`You lose! Computer score is: ${computerScore}`);
+  }
 }
 
-// if (Hchoice.toLowerCase() === getComputerChoice(elements)) {
-//     return alert('U won. Your Score is:');
-// } else {
-//     return alert('Bad');
-// }
+function playGame() {
+  let roundsPlayed = 0; // Track played rounds
+  while (roundsPlayed < 5 && userScore < 3 && computerScore < 3) {
+    const userChoice = getUserChoice();
+    const computerChoice = getComputerChoice();
+    playRound(userChoice, computerChoice);
+    roundsPlayed++;
+  }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerchoice();
+  if (userScore > computerScore) {
+    alert('U wyn!');
+  } else {
+    alert('U l0se!');
+  }
+}
 
-playRound(humanSelection, computerSelection);
+playGame();
